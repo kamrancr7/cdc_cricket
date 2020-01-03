@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "545331842249",
+    "firebase_url": "https://fir-test-ab207.firebaseio.com",
+    "project_id": "fir-test-ab207",
+    "storage_bucket": "fir-test-ab207.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545331842249:android:c1288a16352c75f51a5118",
+        "android_client_info": {
+          "package_name": "com.cdccricket.cdc_cricket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545331842249-q9p2f8kj1gdjb0eals7qtet829ojmjvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjFxqbR4siJrq9oQuKnuAO_s0KZTRMXzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545331842249-q9p2f8kj1gdjb0eals7qtet829ojmjvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
