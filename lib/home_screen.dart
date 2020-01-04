@@ -5,6 +5,8 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'match_details.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreen createState() => _HomeScreen();
@@ -160,8 +162,23 @@ class _HomeScreen extends State<HomeScreen> {
                               ],
                             ),
                             snapshot.data.documents[i]['toss']
-                                ? Text("test")
-                                : Text("Match start soon")
+                                ? Text(snapshot.data.documents[i]['tossResult'])
+                                : Text("Match start soon"),
+                            Container(
+                              child: new RaisedButton(
+                                child: new Text("Match Details"),
+                                textColor: Colors.white,
+                                color: Colors.blue,
+                                onPressed: () {
+                                  print(snapshot.data.documents[i].documentID);
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) => MatchDetails(snapshot.data.documents[i].documentID)));
+                                },
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(20.0)),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -209,50 +226,44 @@ class _HomeScreen extends State<HomeScreen> {
                     columns: [
                       DataColumn(
                         label: Center(
-                          child: Text("Teams",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            fontSize: 16
-                          )),
+                          child: Text("Teams",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("MP",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("MP",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("W",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("W",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("L",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("L",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("T",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("T",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("P",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("P",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                     ],
@@ -301,50 +312,46 @@ class _HomeScreen extends State<HomeScreen> {
                     columns: [
                       DataColumn(
                         label: Center(
-                          child: Text("Teams",style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          ),),
+                          child: Text(
+                            "Teams",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("MP",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("MP",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("W",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("W",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("L",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("L",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("T",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("T",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("P",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          )),
+                          child: Text("P",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                       ),
                     ],
@@ -398,7 +405,10 @@ class _HomeScreen extends State<HomeScreen> {
                         child: Text(
                           "CDC House Cricket Tournament",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.blue),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
                         ),
                       ),
                       Padding(
