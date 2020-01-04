@@ -209,32 +209,50 @@ class _HomeScreen extends State<HomeScreen> {
                     columns: [
                       DataColumn(
                         label: Center(
-                          child: Text("Teams"),
+                          child: Text("Teams",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            fontSize: 16
+                          )),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("MP"),
+                          child: Text("MP",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("W"),
+                          child: Text("W",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("L"),
+                          child: Text("L",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("T"),
+                          child: Text("T",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("P"),
+                          child: Text("P",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                     ],
@@ -283,32 +301,50 @@ class _HomeScreen extends State<HomeScreen> {
                     columns: [
                       DataColumn(
                         label: Center(
-                          child: Text("Teams"),
+                          child: Text("Teams",style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          ),),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("MP"),
+                          child: Text("MP",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("W"),
+                          child: Text("W",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("L"),
+                          child: Text("L",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("T"),
+                          child: Text("T",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                       DataColumn(
                         label: Center(
-                          child: Text("P"),
+                          child: Text("P",style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                          )),
                         ),
                       ),
                     ],
