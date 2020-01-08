@@ -148,7 +148,7 @@ class _HomeScreen extends State<HomeScreen> {
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
                                       CircleAvatar(
-                                        backgroundColor: Colors.blue,
+                                        backgroundColor: Colors.indigo[500],
                                         radius: 25,
                                         child: Text(
                                           snapshot.data.documents[i]
@@ -186,7 +186,7 @@ class _HomeScreen extends State<HomeScreen> {
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
                                       CircleAvatar(
-                                        backgroundColor: Colors.blue,
+                                        backgroundColor: Colors.indigo[500],
                                         radius: 25,
                                         child: Text(snapshot.data.documents[i]
                                             ['teamBShort'],
@@ -233,7 +233,7 @@ class _HomeScreen extends State<HomeScreen> {
                               child: Text(
                                 "Match Details",
                                 style: TextStyle(
-                                    color: Colors.blue,
+                                    color: Colors.indigo[500],
                                     decoration: TextDecoration.underline),
                               ),
                             )
@@ -458,7 +458,7 @@ class _HomeScreen extends State<HomeScreen> {
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.blue),
+                              color: Colors.indigo[500]),
                         ),
                       ),
                       Padding(
