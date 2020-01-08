@@ -55,13 +55,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
-            Align(
-              alignment: FractionalOffset.bottomCenter,
-                heightFactor: 22,
-                child: Text("CDC House Cricket Tournament",style: TextStyle(
-                  fontSize: 22,color: Colors.white,fontWeight: FontWeight.bold
-                ),),
-            )
           ],
         )
     );
