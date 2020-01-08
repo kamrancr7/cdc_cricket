@@ -172,7 +172,8 @@ class _HomeScreen extends State<HomeScreen> {
                                 onPressed: () {
                                   print(snapshot.data.documents[i].documentID);
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) => MatchDetails(snapshot.data.documents[i].documentID)));
+                                      builder: (BuildContext context) => MatchDetails(snapshot.data.documents[i].documentID,
+                                          snapshot.data.documents[i]['teamAId'],snapshot.data.documents[i]['teamBId'])));
                                 },
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
