@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+//import 'package:auro_avatar/auro_avatar.dart';
 import 'match_details.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -141,57 +142,105 @@ class _HomeScreen extends State<HomeScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                Text(
-                                  snapshot.data.documents[i]['teamA'],
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      CircleAvatar(
+                                        backgroundColor: Colors.blue,
+                                        radius: 25,
+                                        child: Text(
+                                          snapshot.data.documents[i]
+                                              ['teamAShort'],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                          fontSize: 18,color: Colors.white),
+                                        ),
+                                      ),
+                                      SizedBox(height: 4,),
+                                      Text(
+                                        snapshot.data.documents[i]['teamA'],
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Text(
-                                  "vs",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                Container(
+                                  width: 100,
+                                  child: Center(
+                                    child: Text(
+                                      "vs",
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey),
+                                    ),
+                                  ),
                                 ),
-                                Text(
-                                  snapshot.data.documents[i]['teamB'],
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      CircleAvatar(
+                                        backgroundColor: Colors.blue,
+                                        radius: 25,
+                                        child: Text(snapshot.data.documents[i]
+                                            ['teamBShort'],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                            fontSize: 18,color: Colors.white)),
+                                      ),
+                                      SizedBox(height: 4,),
+                                      Text(
+                                        snapshot.data.documents[i]['teamB'],
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
-                            snapshot.data.documents[i]['toss']
-                                ? Text(snapshot.data.documents[i]['tossResult'])
-                                : Text("Match start soon"),
-                            Container(
-                              child: new RaisedButton(
-                                child: new Text("Match Details"),
-                                textColor: Colors.white,
-                                color: Colors.blue,
-                                onPressed: () {
-                                  print(snapshot.data.documents[i].documentID);
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) => MatchDetails(snapshot.data.documents[i].documentID,
-                                          snapshot.data.documents[i]['teamAId'],snapshot.data.documents[i]['teamBId'])));
-                                },
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(20.0)),
-                              ),
+                            SizedBox(
+                              height: 10,
                             ),
+                            snapshot.data.documents[i]['toss']
+                                ? Text(
+                                    snapshot.data.documents[i]['tossResult'],
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                : startDate(snapshot
+                                    .data.documents[i]['startTime']
+                                    .toDate()),
+                            FlatButton(
+                              onPressed: () {
+                                print(snapshot.data.documents[i].documentID);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        MatchDetails(
+                                            snapshot
+                                                .data.documents[i].documentID,
+                                            snapshot.data.documents[i]
+                                                ['teamAId'],
+                                            snapshot.data.documents[i]
+                                                ['teamBId'])));
+                              },
+                              child: Text(
+                                "Match Details",
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline),
+                              ),
+                            )
                           ],
                         ),
                       ),
                     ));
-//              ListView(
-//              children: snapshot.data.documents.map((DocumentSnapshot document) {
-//                return ListTile(
-//                  title: Text(document['teamA']),
-//                  subtitle: Text(document['teamB']),
-//                );
-//              }).toList(),
-//            );
         }
       },
     );
@@ -427,6 +476,15 @@ class _HomeScreen extends State<HomeScreen> {
           ),
         ))
       ],
+    );
+  }
+
+  Widget startDate(startDate) {
+    var formatter = new DateFormat('dd/MM/yyyy hh:mm');
+    String formatted = formatter.format(startDate);
+    return Text(
+      formatted,
+      style: TextStyle(color: Colors.grey),
     );
   }
 }

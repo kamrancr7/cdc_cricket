@@ -27,6 +27,7 @@ dependencies:
   bubble_bottom_bar: ^1.2.0
   cloud_firestore: ^0.13.0+1
   google_maps_flutter: ^0.5.21+15
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

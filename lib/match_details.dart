@@ -126,16 +126,35 @@ class _MatchDetailsState extends State<MatchDetails> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            snapshot.data.documents[i]['cmnt'],
-                            style: TextStyle(fontSize: 15),
-                          ),
+                          commentaryText(snapshot.data.documents[i]['boundary'],
+                              snapshot.data.documents[i]['wicket'],
+                              snapshot.data.documents[i]['cmnt']),
                         ],
                       ),
                     ));
         }
       },
     );
+  }
+
+  Widget commentaryText(bool boundary, bool wicket, cmnt) {
+    return boundary
+        ? Text(
+            cmnt,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          )
+        : wicket
+            ? Text(
+                cmnt,
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red),
+              )
+            : Text(
+                cmnt,
+                style: TextStyle(fontSize: 15),
+              );
   }
 
   Widget teamPlayersTab(teamAId, teamBId) {
@@ -213,8 +232,13 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                         "assets/bat.png"),
                                                   )
                                                 : Container(),
-                                SizedBox(width: 4,),
-                                Text(snapshot.data.documents[i]['name'],style: TextStyle(fontSize: 10),),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  snapshot.data.documents[i]['name'],
+                                  style: TextStyle(fontSize: 10),
+                                ),
                               ],
                             ),
                           )
