@@ -56,7 +56,7 @@ class _HomeScreen extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("CDC Cricket"),
+        title: Text("CDC Cricket Tournament"),
       ),
       bottomNavigationBar: BubbleBottomBar(
         opacity: .2,
