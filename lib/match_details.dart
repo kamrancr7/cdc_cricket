@@ -87,6 +87,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       _matchResult,
+                      style: TextStyle(color: Colors.grey),
                     ),
                   ),
                   SizedBox(
