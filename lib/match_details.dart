@@ -5,19 +5,21 @@ class MatchDetails extends StatefulWidget {
   final matchId;
   final teamAId;
   final teamBId;
+  final matchResult;
 
-  MatchDetails(this.matchId, this.teamAId, this.teamBId);
+  MatchDetails(this.matchId, this.teamAId, this.teamBId, this.matchResult);
 
   @override
   _MatchDetailsState createState() =>
-      _MatchDetailsState(matchId, teamAId, teamBId);
+      _MatchDetailsState(matchId, teamAId, teamBId, matchResult);
 }
 
 class _MatchDetailsState extends State<MatchDetails> {
   final _matchId;
   final _teamAId;
   final _teamBId;
-  _MatchDetailsState(this._matchId, this._teamAId, this._teamBId);
+  final _matchResult;
+  _MatchDetailsState(this._matchId, this._teamAId, this._teamBId, this._matchResult);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,13 +44,17 @@ class _MatchDetailsState extends State<MatchDetails> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
-                        snapshot.data.documents[0]["teamA"],
-                        style: TextStyle(fontSize: 22),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          snapshot.data.documents[0]["teamA"],
+                          style: TextStyle(fontSize: 22),
+                        ),
                       ),
                       //runsOver(snapshot.data.documents[0]["teamARuns"].toString(),snapshot.data.documents[0]["teamBOvers"].toString()),
                       Text(
@@ -63,9 +69,12 @@ class _MatchDetailsState extends State<MatchDetails> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
-                        snapshot.data.documents[0]["teamB"],
-                        style: TextStyle(fontSize: 22),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          snapshot.data.documents[0]["teamB"],
+                          style: TextStyle(fontSize: 22),
+                        ),
                       ),
                       //runsOver(snapshot.data.documents[0]["teamBRuns"].toString(),snapshot.data.documents[0]["teamAOvers"].toString()),
                       Text(
@@ -74,8 +83,14 @@ class _MatchDetailsState extends State<MatchDetails> {
                       ),
                     ],
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _matchResult,
+                    ),
+                  ),
                   SizedBox(
-                    height: 18,
+                    height: 16,
                   ),
                   Expanded(
                     child: DefaultTabController(
@@ -93,7 +108,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                             matchCommentaryTab(
                                 snapshot.data.documents[0].documentID),
                             //makeTeamDetailTab(),
-                            teamPlayersTab(_teamAId, _teamBId),
+                            teamPlayersTab(
+                                _teamAId,
+                                snapshot.data.documents[0]["teamA"],
+                                _teamBId,
+                                snapshot.data.documents[0]["teamB"]),
                           ],
                         ),
                       ),
@@ -126,7 +145,8 @@ class _MatchDetailsState extends State<MatchDetails> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          commentaryText(snapshot.data.documents[i]['boundary'],
+                          commentaryText(
+                              snapshot.data.documents[i]['boundary'],
                               snapshot.data.documents[i]['wicket'],
                               snapshot.data.documents[i]['cmnt']),
                         ],
@@ -157,7 +177,7 @@ class _MatchDetailsState extends State<MatchDetails> {
               );
   }
 
-  Widget teamPlayersTab(teamAId, teamBId) {
+  Widget teamPlayersTab(teamAId, teamAName, teamBId, teamBName) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -167,7 +187,10 @@ class _MatchDetailsState extends State<MatchDetails> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[teamList(teamAId), teamList(teamBId)],
+                  children: <Widget>[
+                    teamList(teamAId, teamAName),
+                    teamList(teamBId, teamBName)
+                  ],
                 ),
               ),
             ],
@@ -177,7 +200,7 @@ class _MatchDetailsState extends State<MatchDetails> {
     );
   }
 
-  Widget teamList(teamId) {
+  Widget teamList(teamId, teamName) {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection('/cdc_teams/$teamId/players')
@@ -190,60 +213,67 @@ class _MatchDetailsState extends State<MatchDetails> {
             return Container();
           default:
             return Expanded(
-              child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: snapshot.data.documents.length,
-                  itemBuilder: (context, i) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: <Widget>[
-                                snapshot.data.documents[i]['keeper']
-                                    ? Container(
-                                        height: 20,
-                                        width: 20,
-                                        child: Image.asset("assets/keeper.png"),
-                                      )
-                                    : snapshot.data.documents[i]['bowler']
-                                        ? Container(
-                                            height: 20,
-                                            width: 20,
-                                            child:
-                                                Image.asset("assets/ball.png"),
-                                          )
-                                        : snapshot.data.documents[i]
-                                                ['allrounder']
-                                            ? Container(
-                                                height: 20,
-                                                width: 20,
-                                                child: Image.asset(
-                                                    "assets/allrounder.png"),
-                                              )
-                                            : snapshot.data.documents[i]
-                                                    ['batsman']
-                                                ? Container(
-                                                    height: 20,
-                                                    width: 20,
-                                                    child: Image.asset(
-                                                        "assets/bat.png"),
-                                                  )
-                                                : Container(),
-                                SizedBox(
-                                  width: 4,
-                                ),
-                                Text(
-                                  snapshot.data.documents[i]['name'],
-                                  style: TextStyle(fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      )),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(teamName, style: TextStyle(fontWeight: FontWeight.bold),),
+                  ),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (context, i) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Row(
+                            children: <Widget>[
+                              snapshot.data.documents[i]['keeper']
+                                  ? Container(
+                                      height: 20,
+                                      width: 20,
+                                      child: Image.asset("assets/keeper.png"),
+                                    )
+                                  : snapshot.data.documents[i]['bowler']
+                                      ? Container(
+                                          height: 20,
+                                          width: 20,
+                                          child: Image.asset("assets/ball.png"),
+                                        )
+                                      : snapshot.data.documents[i]['allrounder']
+                                          ? Container(
+                                              height: 20,
+                                              width: 20,
+                                              child: Image.asset(
+                                                  "assets/allrounder.png"),
+                                            )
+                                          : snapshot.data.documents[i]
+                                                  ['batsman']
+                                              ? Container(
+                                                  height: 20,
+                                                  width: 20,
+                                                  child: Image.asset(
+                                                      "assets/bat.png"),
+                                                )
+                                              : Container(),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                snapshot.data.documents[i]['name'],
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             );
         }
       },

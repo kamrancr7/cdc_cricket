@@ -155,10 +155,13 @@ class _HomeScreen extends State<HomeScreen> {
                                               ['teamAShort'],
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                          fontSize: 18,color: Colors.white),
+                                              fontSize: 18,
+                                              color: Colors.white),
                                         ),
                                       ),
-                                      SizedBox(height: 4,),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
                                       Text(
                                         snapshot.data.documents[i]['teamA'],
                                         style: TextStyle(
@@ -188,13 +191,17 @@ class _HomeScreen extends State<HomeScreen> {
                                       CircleAvatar(
                                         backgroundColor: Colors.indigo[500],
                                         radius: 25,
-                                        child: Text(snapshot.data.documents[i]
-                                            ['teamBShort'],
+                                        child: Text(
+                                            snapshot.data.documents[i]
+                                                ['teamBShort'],
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                            fontSize: 18,color: Colors.white)),
+                                                fontSize: 18,
+                                                color: Colors.white)),
                                       ),
-                                      SizedBox(height: 4,),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
                                       Text(
                                         snapshot.data.documents[i]['teamB'],
                                         style: TextStyle(
@@ -214,9 +221,15 @@ class _HomeScreen extends State<HomeScreen> {
                                     snapshot.data.documents[i]['tossResult'],
                                     style: TextStyle(color: Colors.grey),
                                   )
-                                : startDate(snapshot
-                                    .data.documents[i]['startTime']
-                                    .toDate()),
+                                : snapshot.data.documents[i]['result']
+                                    ? Text(
+                                        snapshot.data.documents[i]
+                                            ['matchResult'],
+                                        style: TextStyle(color: Colors.grey),
+                                      )
+                                    : startDate(snapshot
+                                        .data.documents[i]['startTime']
+                                        .toDate()),
                             FlatButton(
                               onPressed: () {
                                 print(snapshot.data.documents[i].documentID);
@@ -228,7 +241,9 @@ class _HomeScreen extends State<HomeScreen> {
                                             snapshot.data.documents[i]
                                                 ['teamAId'],
                                             snapshot.data.documents[i]
-                                                ['teamBId'])));
+                                                ['teamBId'],
+                                            snapshot.data.documents[i]
+                                            ['matchResult'])));
                               },
                               child: Text(
                                 "Match Details",
@@ -248,7 +263,10 @@ class _HomeScreen extends State<HomeScreen> {
 
   Widget tableWidgetA() {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('points_tableA').snapshots(),
+      stream: Firestore.instance
+          .collection('points_tableA')
+          .orderBy('points', descending: true)
+          .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
         switch (snapshot.connectionState) {
@@ -339,7 +357,10 @@ class _HomeScreen extends State<HomeScreen> {
 
   Widget tableWidgetB() {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('points_tableB').snapshots(),
+      stream: Firestore.instance
+          .collection('points_tableB')
+          .orderBy('points', descending: true)
+          .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
         switch (snapshot.connectionState) {
