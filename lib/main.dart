@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:cdc_cricket/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'points_table.dart';
+import 'map_screen.dart';
+import 'teams.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,9 +20,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         accentColor: Colors.indigo[500],
+        primaryColor: Colors.white
       ),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
+      routes: <String, WidgetBuilder>{
+        "/points_table": (BuildContext context) => PointsTable(),
+        "/map_screen": (BuildContext context) => MapScreen(),
+        "/team_screen": (BuildContext context) => Teams(),
+      }
     );
   }
 }
