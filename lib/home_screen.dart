@@ -49,57 +49,9 @@ class _HomeScreen extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(Icons.people),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Teams'),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.popAndPushNamed(context, "/team_screen");
-                    },
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(Icons.table_chart),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Points Table'),
-                      ],
-                    ),
-                    onTap: () {
-                      // Update the state of the app
-                      Navigator.popAndPushNamed(context, "/points_table");
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (BuildContext context) => PointsTable()
-                      //     )
-                      // );
-                      // Then close the drawer
-                      //Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(Icons.location_on),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Map'),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.popAndPushNamed(context, "/map_screen");
-                    },
-                  ),
+                  slideMenu(Icon(Icons.people),'Teams',"/team_screen"),
+                  slideMenu(Icon(Icons.table_chart),'Points Table',"/points_table"),
+                  slideMenu(Icon(Icons.location_on),'Map',"/map_screen"),
                 ],
               ),
             ),
@@ -319,6 +271,23 @@ class _HomeScreen extends State<HomeScreen> {
     return Text(
       formatted,
       style: TextStyle(color: Colors.grey),
+    );
+  }
+
+  Widget slideMenu(Icon icon, name, screen){
+    return ListTile(
+      title: Row(
+        children: [
+          icon,
+          SizedBox(
+            width: 10,
+          ),
+          Text(name),
+        ],
+      ),
+      onTap: () {
+        Navigator.popAndPushNamed(context, screen);
+      },
     );
   }
 }
