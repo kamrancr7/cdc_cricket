@@ -19,7 +19,8 @@ class _MatchDetailsState extends State<MatchDetails> {
   final _teamAId;
   final _teamBId;
   final _matchResult;
-  _MatchDetailsState(this._matchId, this._teamAId, this._teamBId, this._matchResult);
+  _MatchDetailsState(
+      this._matchId, this._teamAId, this._teamBId, this._matchResult);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,48 +47,59 @@ class _MatchDetailsState extends State<MatchDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          snapshot.data.documents[0]["teamA"],
-                          style: TextStyle(fontSize: 22),
-                        ),
+                  Card(
+                    elevation: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                teamName(
+                                  snapshot.data.documents[0]["teamA"],
+                                ),
+                                teamRunsOvers(
+                                  snapshot.data.documents[0]["teamARuns"],
+                                  snapshot.data.documents[0]["teamBOvers"],
+                                  snapshot.data.documents[0]["totalOvers"],
+                                ),
+                                // Text(
+                                //   snapshot.data.documents[0]["teamARuns"],
+                                //   style: TextStyle(fontSize: 18),
+                                // ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 12,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                teamName(snapshot.data.documents[0]["teamB"]),
+                                teamRunsOvers(
+                                  snapshot.data.documents[0]["teamBRuns"],
+                                  snapshot.data.documents[0]["teamAOvers"],
+                                  snapshot.data.documents[0]["totalOvers"],
+                                ),
+                                // Text(
+                                //   snapshot.data.documents[0]["teamBRuns"],
+                                //   style: TextStyle(fontSize: 20),
+                                // ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            _matchResult,
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
                       ),
-                      //runsOver(snapshot.data.documents[0]["teamARuns"].toString(),snapshot.data.documents[0]["teamBOvers"].toString()),
-                      Text(
-                        snapshot.data.documents[0]["teamARuns"],
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          snapshot.data.documents[0]["teamB"],
-                          style: TextStyle(fontSize: 22),
-                        ),
-                      ),
-                      //runsOver(snapshot.data.documents[0]["teamBRuns"].toString(),snapshot.data.documents[0]["teamAOvers"].toString()),
-                      Text(
-                        snapshot.data.documents[0]["teamBRuns"],
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      _matchResult,
-                      style: TextStyle(color: Colors.grey),
                     ),
                   ),
                   SizedBox(
@@ -108,7 +120,6 @@ class _MatchDetailsState extends State<MatchDetails> {
                           children: [
                             matchCommentaryTab(
                                 snapshot.data.documents[0].documentID),
-                            //makeTeamDetailTab(),
                             teamPlayersTab(
                                 _teamAId,
                                 snapshot.data.documents[0]["teamA"],
@@ -218,7 +229,10 @@ class _MatchDetailsState extends State<MatchDetails> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(teamName, style: TextStyle(fontWeight: FontWeight.bold),),
+                    child: Text(
+                      teamName,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -281,5 +295,28 @@ class _MatchDetailsState extends State<MatchDetails> {
     );
   }
 
-  Widget playerRole(batsman, bowler, allrounder, keeper) {}
+  Widget teamName(name) {
+    return Text(
+      name,
+      style: TextStyle(fontSize: 18),
+    );
+  }
+
+  Widget teamRunsOvers(runs, overs, totalOvers) {
+    return Column(
+      children: [
+        Text(
+          runs,
+          style: TextStyle(fontSize: 16),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          '(' + overs + '/' + totalOvers + ' overs)',
+          style: TextStyle(fontSize: 12),
+        )
+      ],
+    );
+  }
 }
