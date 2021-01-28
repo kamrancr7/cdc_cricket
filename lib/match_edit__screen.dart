@@ -161,10 +161,10 @@ class _MatchEditScreenState extends State<MatchEditScreen> {
 
   Future<void> updateScore(teamBatting, runs, teamBowling, overs) {
     CollectionReference users =
-        Firestore.instance.collection('/schedule/$_matchId/match_details');
+        FirebaseFirestore.instance.collection('/schedule/$_matchId/match_details');
     return users
-        .document('matchDoc')
-        .updateData({
+        .doc('matchDoc')
+        .update({
           teamBatting: runs,
           teamBowling: overs,
         })
@@ -173,11 +173,11 @@ class _MatchEditScreenState extends State<MatchEditScreen> {
   }
 
   Future<void> addCommentary(id,boundary,cmnt,wicket) {
-    DocumentReference users = Firestore.instance
+    DocumentReference users = FirebaseFirestore.instance
         .collection('/schedule/$_matchId/match_details/matchDoc/commentary')
-        .document();
+        .doc();
     return users
-        .setData({
+        .set({
           'boundary': boundary,
           'cmnt': cmnt,
           'id': id,
@@ -189,10 +189,10 @@ class _MatchEditScreenState extends State<MatchEditScreen> {
 
   Future<void> updateResult(result,boolResult,matchStarted) {
     CollectionReference users =
-    Firestore.instance.collection('/schedule');
+    FirebaseFirestore.instance.collection('/schedule');
     return users
-        .document(_matchId)
-        .updateData({
+        .doc(_matchId)
+        .update({
       'matchResult': result,
       'result':boolResult,
       'matchStarted':matchStarted

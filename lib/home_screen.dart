@@ -96,7 +96,7 @@ class _HomeScreen extends State<HomeScreen> {
 
   Widget homeWidget(matchStarted) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
+      stream: FirebaseFirestore.instance
           .collection('schedule')
           .where('matchStarted', isEqualTo: matchStarted)
           .orderBy('matchNo', descending: false)
@@ -108,7 +108,7 @@ class _HomeScreen extends State<HomeScreen> {
             return Center(child: CircularProgressIndicator());
           default:
             return ListView.builder(
-                itemCount: snapshot.data.documents.length,
+                itemCount: snapshot.data.docs.length,
                 itemBuilder: (context, i) => Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
@@ -121,7 +121,7 @@ class _HomeScreen extends State<HomeScreen> {
                           child: Column(
                             children: <Widget>[
                               Text(
-                                snapshot.data.documents[i]['matchType'],
+                                snapshot.data.docs[i]['matchType'],
                                 style: TextStyle(fontSize: 16),
                               ),
                               Row(
@@ -135,7 +135,7 @@ class _HomeScreen extends State<HomeScreen> {
                                       children: <Widget>[
                                         ClipRRect(
                                           child: Image.network(
-                                            snapshot.data.documents[i]
+                                            snapshot.data.docs[i]
                                                 ['teamAShort'],
                                             height: 70,
                                             width: 70,
@@ -147,7 +147,7 @@ class _HomeScreen extends State<HomeScreen> {
                                           height: 4,
                                         ),
                                         Text(
-                                          snapshot.data.documents[i]['teamA'],
+                                          snapshot.data.docs[i]['teamA'],
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
@@ -174,7 +174,7 @@ class _HomeScreen extends State<HomeScreen> {
                                       children: <Widget>[
                                         ClipRRect(
                                           child: Image.network(
-                                            snapshot.data.documents[i]
+                                            snapshot.data.docs[i]
                                                 ['teamBShort'],
                                             height: 70,
                                             width: 70,
@@ -197,7 +197,7 @@ class _HomeScreen extends State<HomeScreen> {
                                           height: 4,
                                         ),
                                         Text(
-                                          snapshot.data.documents[i]['teamB'],
+                                          snapshot.data.docs[i]['teamB'],
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
@@ -229,18 +229,18 @@ class _HomeScreen extends State<HomeScreen> {
                                   : RaisedButton(
                                       onPressed: () {
                                         print(snapshot
-                                            .data.documents[i].documentID);
+                                            .data.docs[i].id);
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (BuildContext context) =>
                                                 MatchDetails(
                                               snapshot
-                                                  .data.documents[i].documentID,
-                                              snapshot.data.documents[i]
+                                                  .data.docs[i].id,
+                                              snapshot.data.docs[i]
                                                   ['teamAId'],
-                                              snapshot.data.documents[i]
+                                              snapshot.data.docs[i]
                                                   ['teamBId'],
-                                              snapshot.data.documents[i]
+                                              snapshot.data.docs[i]
                                                   ['matchResult'],
                                             ),
                                           ),

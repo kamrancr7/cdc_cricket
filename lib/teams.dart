@@ -42,7 +42,7 @@ class _TeamsState extends State<Teams> {
 
   Widget teamsList(teamId) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
+      stream: FirebaseFirestore.instance
           .collection('/cdc_teams/$teamId/players')
           .orderBy('id', descending: false)
           .snapshots(),
@@ -56,7 +56,7 @@ class _TeamsState extends State<Teams> {
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: snapshot.data.documents.length,
+              itemCount: snapshot.data.docs.length,
               itemBuilder: (context, i) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -64,26 +64,26 @@ class _TeamsState extends State<Teams> {
                     padding: const EdgeInsets.all(4.0),
                     child: Row(
                       children: <Widget>[
-                        snapshot.data.documents[i]['keeper']
+                        snapshot.data.docs[i]['keeper']
                             ? Container(
                                 height: 20,
                                 width: 20,
                                 child: Image.asset("assets/keeper.png"),
                               )
-                            : snapshot.data.documents[i]['bowler']
+                            : snapshot.data.docs[i]['bowler']
                                 ? Container(
                                     height: 20,
                                     width: 20,
                                     child: Image.asset("assets/ball.png"),
                                   )
-                                : snapshot.data.documents[i]['allrounder']
+                                : snapshot.data.docs[i]['allrounder']
                                     ? Container(
                                         height: 20,
                                         width: 20,
                                         child: Image.asset(
                                             "assets/allrounder.png"),
                                       )
-                                    : snapshot.data.documents[i]['batsman']
+                                    : snapshot.data.docs[i]['batsman']
                                         ? Container(
                                             height: 20,
                                             width: 20,
@@ -95,7 +95,7 @@ class _TeamsState extends State<Teams> {
                           width: 10,
                         ),
                         Text(
-                          snapshot.data.documents[i]['name'],
+                          snapshot.data.docs[i]['name'],
                           style: TextStyle(fontSize: 14),
                         ),
                       ],

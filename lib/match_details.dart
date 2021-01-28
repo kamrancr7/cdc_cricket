@@ -33,7 +33,7 @@ class _MatchDetailsState extends State<MatchDetails> {
 
   Widget header() {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
+      stream: FirebaseFirestore.instance
           .collection('/schedule/$_matchId/match_details')
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -59,12 +59,12 @@ class _MatchDetailsState extends State<MatchDetails> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 teamName(
-                                  snapshot.data.documents[0]["teamA"],
+                                  snapshot.data.docs[0]["teamA"],
                                 ),
                                 teamRunsOvers(
-                                  snapshot.data.documents[0]["teamARuns"],
-                                  snapshot.data.documents[0]["teamBOvers"],
-                                  snapshot.data.documents[0]["totalOvers"],
+                                  snapshot.data.docs[0]["teamARuns"],
+                                  snapshot.data.docs[0]["teamBOvers"],
+                                  snapshot.data.docs[0]["totalOvers"],
                                 ),
                                 // Text(
                                 //   snapshot.data.documents[0]["teamARuns"],
@@ -81,11 +81,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                teamName(snapshot.data.documents[0]["teamB"]),
+                                teamName(snapshot.data.docs[0]["teamB"]),
                                 teamRunsOvers(
-                                  snapshot.data.documents[0]["teamBRuns"],
-                                  snapshot.data.documents[0]["teamAOvers"],
-                                  snapshot.data.documents[0]["totalOvers"],
+                                  snapshot.data.docs[0]["teamBRuns"],
+                                  snapshot.data.docs[0]["teamAOvers"],
+                                  snapshot.data.docs[0]["totalOvers"],
                                 ),
                                 // Text(
                                 //   snapshot.data.documents[0]["teamBRuns"],
@@ -119,12 +119,12 @@ class _MatchDetailsState extends State<MatchDetails> {
                         body: TabBarView(
                           children: [
                             matchCommentaryTab(
-                                snapshot.data.documents[0].documentID),
+                                snapshot.data.docs[0].id),
                             teamPlayersTab(
                                 _teamAId,
-                                snapshot.data.documents[0]["teamA"],
+                                snapshot.data.docs[0]["teamA"],
                                 _teamBId,
-                                snapshot.data.documents[0]["teamB"]),
+                                snapshot.data.docs[0]["teamB"]),
                           ],
                         ),
                       ),
@@ -140,7 +140,7 @@ class _MatchDetailsState extends State<MatchDetails> {
 
   Widget matchCommentaryTab(id) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
+      stream: FirebaseFirestore.instance
           .collection('/schedule/$_matchId/match_details/$id/commentary')
           .orderBy('id', descending: true)
           .snapshots(),
@@ -151,16 +151,16 @@ class _MatchDetailsState extends State<MatchDetails> {
             return Center(child: CircularProgressIndicator());
           default:
             return ListView.builder(
-                itemCount: snapshot.data.documents.length,
+                itemCount: snapshot.data.docs.length,
                 itemBuilder: (context, i) => Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           commentaryText(
-                              snapshot.data.documents[i]['boundary'],
-                              snapshot.data.documents[i]['wicket'],
-                              snapshot.data.documents[i]['cmnt']),
+                              snapshot.data.docs[i]['boundary'],
+                              snapshot.data.docs[i]['wicket'],
+                              snapshot.data.docs[i]['cmnt']),
                         ],
                       ),
                     ));
@@ -214,7 +214,7 @@ class _MatchDetailsState extends State<MatchDetails> {
 
   Widget teamList(teamId, teamName) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
+      stream: FirebaseFirestore.instance
           .collection('/cdc_teams/$teamId/players')
           .orderBy('id', descending: false)
           .snapshots(),
@@ -238,7 +238,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                     physics: NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: snapshot.data.documents.length,
+                    itemCount: snapshot.data.docs.length,
                     itemBuilder: (context, i) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -246,26 +246,26 @@ class _MatchDetailsState extends State<MatchDetails> {
                           padding: const EdgeInsets.all(4.0),
                           child: Row(
                             children: <Widget>[
-                              snapshot.data.documents[i]['keeper']
+                              snapshot.data.docs[i]['keeper']
                                   ? Container(
                                       height: 20,
                                       width: 20,
                                       child: Image.asset("assets/keeper.png"),
                                     )
-                                  : snapshot.data.documents[i]['bowler']
+                                  : snapshot.data.docs[i]['bowler']
                                       ? Container(
                                           height: 20,
                                           width: 20,
                                           child: Image.asset("assets/ball.png"),
                                         )
-                                      : snapshot.data.documents[i]['allrounder']
+                                      : snapshot.data.docs[i]['allrounder']
                                           ? Container(
                                               height: 20,
                                               width: 20,
                                               child: Image.asset(
                                                   "assets/allrounder.png"),
                                             )
-                                          : snapshot.data.documents[i]
+                                          : snapshot.data.docs[i]
                                                   ['batsman']
                                               ? Container(
                                                   height: 20,
@@ -278,7 +278,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 width: 4,
                               ),
                               Text(
-                                snapshot.data.documents[i]['name'],
+                                snapshot.data.docs[i]['name'],
                                 style: TextStyle(fontSize: 10),
                               ),
                             ],
