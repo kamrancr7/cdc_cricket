@@ -18,7 +18,7 @@ class PointsTable extends StatelessWidget {
 
   Widget tableWidgetA() {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
+      stream: FirebaseFirestore.instance
           .collection('points_tableA')
           .orderBy('points', descending: true)
           .snapshots(),
@@ -41,7 +41,7 @@ class PointsTable extends StatelessWidget {
                 ),
                 Text("Group A",
                     style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DataTable(
@@ -90,16 +90,16 @@ class PointsTable extends StatelessWidget {
                         ),
                       ),
                     ],
-                    rows: snapshot.data.documents
+                    rows: snapshot.data.docs
                         .map((itemRow) => DataRow(cells: [
-                              DataCell(Text(itemRow.data['team_name'])),
-                              DataCell(Text(
-                                  itemRow.data['matches_played'].toString())),
-                              DataCell(Text(itemRow.data['won'].toString())),
-                              DataCell(Text(itemRow.data['loss'].toString())),
-                              DataCell(Text(itemRow.data['tie'].toString())),
-                              DataCell(Text(itemRow.data['points'].toString()))
-                            ]))
+                      DataCell(Text(itemRow.get('team_name'))),
+                      DataCell(Text(
+                          itemRow.get('matches_played').toString())),
+                      DataCell(Text(itemRow.get('won').toString())),
+                      DataCell(Text(itemRow.get('loss').toString())),
+                      DataCell(Text(itemRow.get('tie').toString())),
+                      DataCell(Text(itemRow.get('points').toString()))
+                    ]))
                         .toList(),
                   ),
                 ),
@@ -112,7 +112,7 @@ class PointsTable extends StatelessWidget {
 
   Widget tableWidgetB() {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
+      stream: FirebaseFirestore.instance
           .collection('points_tableB')
           .orderBy('points', descending: true)
           .snapshots(),
@@ -130,7 +130,7 @@ class PointsTable extends StatelessWidget {
                 ),
                 Text("Group B",
                     style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DataTable(
@@ -181,16 +181,16 @@ class PointsTable extends StatelessWidget {
                         ),
                       ),
                     ],
-                    rows: snapshot.data.documents
+                    rows: snapshot.data.docs
                         .map((itemRow) => DataRow(cells: [
-                              DataCell(Text(itemRow.data['team_name'])),
-                              DataCell(Text(
-                                  itemRow.data['matches_played'].toString())),
-                              DataCell(Text(itemRow.data['won'].toString())),
-                              DataCell(Text(itemRow.data['loss'].toString())),
-                              DataCell(Text(itemRow.data['tie'].toString())),
-                              DataCell(Text(itemRow.data['points'].toString()))
-                            ]))
+                      DataCell(Text(itemRow.get('team_name'))),
+                      DataCell(Text(
+                          itemRow.get('matches_played').toString())),
+                      DataCell(Text(itemRow.get('won').toString())),
+                      DataCell(Text(itemRow.get('loss').toString())),
+                      DataCell(Text(itemRow.get('tie').toString())),
+                      DataCell(Text(itemRow.get('points').toString()))
+                    ]))
                         .toList(),
                   ),
                 ),
