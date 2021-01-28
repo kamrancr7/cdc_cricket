@@ -49,9 +49,11 @@ class _HomeScreen extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  slideMenu(Icon(Icons.people),'Teams',"/team_screen"),
-                  slideMenu(Icon(Icons.table_chart),'Points Table',"/points_table"),
-                  slideMenu(Icon(Icons.location_on),'Map',"/map_screen"),
+                  slideMenu(Icon(Icons.people), 'Teams', "/team_screen"),
+                  slideMenu(
+                      Icon(Icons.table_chart), 'Points Table', "/points_table"),
+                  slideMenu(Icon(Icons.location_on), 'Map', "/map_screen"),
+                  //slideMenu(Icon(Icons.edit), 'Edit Match', "/match_edit"),
                 ],
               ),
             ),
@@ -102,7 +104,7 @@ class _HomeScreen extends State<HomeScreen> {
       stream: Firestore.instance
           .collection('schedule')
           .where('matchStarted', isEqualTo: matchStarted)
-          //.orderBy('matchNo', descending: false)
+          .orderBy('matchNo', descending: false)
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
@@ -136,17 +138,15 @@ class _HomeScreen extends State<HomeScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
-                                        CircleAvatar(
-                                          backgroundColor: Colors.blue[900],
-                                          radius: 22,
-                                          child: Text(
+                                        ClipRRect(
+                                          child: Image.network(
                                             snapshot.data.documents[i]
                                                 ['teamAShort'],
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15,
-                                                color: Colors.white),
+                                            height: 70,
+                                            width: 70,
                                           ),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                         ),
                                         SizedBox(
                                           height: 4,
@@ -177,17 +177,27 @@ class _HomeScreen extends State<HomeScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
-                                        CircleAvatar(
-                                          backgroundColor: Colors.blue[900],
-                                          radius: 22,
-                                          child: Text(
-                                              snapshot.data.documents[i]
-                                                  ['teamBShort'],
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15,
-                                                  color: Colors.white)),
+                                        ClipRRect(
+                                          child: Image.network(
+                                            snapshot.data.documents[i]
+                                                ['teamBShort'],
+                                            height: 70,
+                                            width: 70,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                         ),
+                                        // CircleAvatar(
+                                        //   backgroundColor: Colors.blue[900],
+                                        //   radius: 22,
+                                        //   child: Text(
+                                        //       snapshot.data.documents[i]
+                                        //           ['teamBShort'],
+                                        //       style: TextStyle(
+                                        //           fontWeight: FontWeight.bold,
+                                        //           fontSize: 15,
+                                        //           color: Colors.white)),
+                                        // ),
                                         SizedBox(
                                           height: 4,
                                         ),
@@ -274,7 +284,7 @@ class _HomeScreen extends State<HomeScreen> {
     );
   }
 
-  Widget slideMenu(Icon icon, name, screen){
+  Widget slideMenu(Icon icon, name, screen) {
     return ListTile(
       title: Row(
         children: [
