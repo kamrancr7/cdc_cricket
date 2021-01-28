@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cdc_cricket/home_screen.dart';
+import 'package:cdc_cricket/match_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'points_table.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         "/points_table": (BuildContext context) => PointsTable(),
         "/map_screen": (BuildContext context) => MapScreen(),
         "/team_screen": (BuildContext context) => Teams(),
+        "/match_edit": (BuildContext context) => MatchEdit(),
       }
     );
   }
