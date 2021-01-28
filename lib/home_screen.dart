@@ -47,7 +47,7 @@ class _HomeScreen extends State<HomeScreen> {
                   slideMenu(Icon(Icons.people), 'Teams', "/team_screen"),
                   slideMenu(
                       Icon(Icons.table_chart), 'Points Table', "/points_table"),
-                  slideMenu(Icon(Icons.location_on), 'Map', "/map_screen"),
+                  //slideMenu(Icon(Icons.location_on), 'Map', "/map_screen"),
                   slideMenu(Icon(Icons.edit), 'Edit Match', "/match_edit"),
                 ],
               ),
